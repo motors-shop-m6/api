@@ -33,6 +33,8 @@
 - [uuid](https://www.npmjs.com/package/uuid)
 - [dotenv](https://www.npmjs.com/package/dotenv)
 - [cross-env](https://www.npmjs.com/package/cross-env)
+- [cloudinary](https://www.npmjs.com/package/cloudinary)
+- [multer](https://www.npmjs.com/package/multer)
 
 <br>
 
@@ -46,12 +48,13 @@
 
 - [Nodejs](https://www.nodejs.org/en/)
 - [PostgresSQL:14](https://www.postgresql.org/download/)
+- [Cloudinary](https://cloudinary.com/users/register_free#gsc.tab=0)
 
 <br>
 
 ## Installing
 
-> Rename the environment variables
+> Rename and Configure the environment variables
 
 - `.env.example` to `.env`
 
