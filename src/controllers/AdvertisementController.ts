@@ -15,4 +15,11 @@ export class AdvertisementController{
 
     return res.send(advertisements)
   }
+
+  static readById = async(req: Request, res: Response) => {
+    const { id } = req.params    
+    const advertisements = await AdvertisementService.readById(id);
+
+    return res.send(advertisements)
+  }
 }

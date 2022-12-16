@@ -1,6 +1,7 @@
 import { AppDataSource } from "../data-source";
 import { AdvertisementEntity } from "../entities/AdvertisementEntity";
 import { CoverImageEntity } from "../entities/CoverImageEntity";
+import { BadRequestError } from "../errors/AsyncErrorResponse";
 import { IAdvertisementRequest, IAdvertisementResponse } from "../interfaces/advertisementInterface";
 
 export class AdvertisementService{
@@ -29,5 +30,27 @@ export class AdvertisementService{
     });
 
     return advertisements
+  }
+
+  static readById = async(id: string): Promise<IAdvertisementResponse> => {
+    const advertisementRepository = AppDataSource.getRepository(AdvertisementEntity);
+
+    const advertisement = await advertisementRepository.findOne({
+      where: {id},
+      select: {
+        coverImage: {
+          image: true
+        }
+      },
+      relations: {
+        coverImage: true
+      }
+    });
+
+    if(!advertisement){
+      throw new BadRequestError("Invalid Ad Id");
+    }
+
+    return advertisement
   }
 }

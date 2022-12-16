@@ -16,10 +16,12 @@ export const advertisementRoutes = () =>{
   );
 
   routes.get("/list", 
-  AdvertisementController.readAll
-);
+    AdvertisementController.readAll
+  );
 
-
+  routes.get("/:id", 
+    AdvertisementController.readById
+  );
 
   routes.post("/cloudinary", 
     upload.array("image", Infinity),
