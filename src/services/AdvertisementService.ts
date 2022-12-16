@@ -53,4 +53,16 @@ export class AdvertisementService{
 
     return advertisement
   }
+
+  static deleteById = async(id: string): Promise<void> => {
+    const advertisementRepository = AppDataSource.getRepository(AdvertisementEntity);
+
+    const advertisement = await advertisementRepository.findOneBy({id});
+
+    if(!advertisement){
+      throw new BadRequestError("Invalid Ad Id");
+    }
+
+    await advertisementRepository.update(id, Object.assign(advertisement, advertisement.isActive=false))
+  }
 }
