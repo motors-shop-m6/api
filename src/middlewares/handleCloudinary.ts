@@ -1,8 +1,8 @@
 import { v2 as cloudinary } from "cloudinary";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import fs from "fs";
 
-export const handleCloudinary = async (req: Request, res: Response) => {
+export const handleCloudinary = async (req: Request, res: Response, next: NextFunction) => {
   const cloudinaryResp: any = [];
   const files: any = req.files;
   
@@ -26,4 +26,5 @@ export const handleCloudinary = async (req: Request, res: Response) => {
   }
   
   return res.json(cloudinaryResp)
+  // next();
 }

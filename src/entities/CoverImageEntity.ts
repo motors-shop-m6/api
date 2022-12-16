@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { AdvertisementEntity } from "./AdvertisementEntity";
 
 @Entity("images")
 export class CoverImageEntity{
@@ -13,4 +14,7 @@ export class CoverImageEntity{
 
   @UpdateDateColumn({name: "removed_at"})
   updatedAt: Date;
+
+  @ManyToOne(()=> AdvertisementEntity)
+  advertisement: AdvertisementEntity; 
 }

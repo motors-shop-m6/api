@@ -9,6 +9,7 @@ export class AdvertisementSchema {
     km: yup.string().required("Field Required"),
     price: yup.number().required("Field Required"),
     description: yup.string().required("Field Required"),
-    typeOfVehicle: yup.boolean().required()
+    typeOfVehicle: yup.boolean().required("Field Required"),
+    images: yup.array().required("Field Required")
   });
 }

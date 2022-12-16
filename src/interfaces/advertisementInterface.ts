@@ -5,6 +5,7 @@ export interface IAdvertisementRequest {
   price: number;
   description: string;
   typeOfVehicle: boolean;
+  images: string[];
 }
 
 export interface IAdvertisementResponse extends IAdvertisementRequest{

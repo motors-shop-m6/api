@@ -1,9 +1,9 @@
-export interface IAdvertisementRequest {
-  image: string;
-}
+import { IAdvertisementResponse } from "./advertisementInterface";
 
-export interface IAdvertisementResponse extends IAdvertisementRequest{
+export interface ICoverImage{
   id: string;
-  createdAt: Date;
+  image: string;
+  addedAt: Date;
   updatedAt: Date;
+  advertisementId: IAdvertisementResponse;
 }
