@@ -15,6 +15,12 @@ export const advertisementRoutes = () =>{
     AdvertisementController.create
   );
 
+  routes.get("/list", 
+  AdvertisementController.readAll
+);
+
+
+
   routes.post("/cloudinary", 
     upload.array("image", Infinity),
     handleCloudinary

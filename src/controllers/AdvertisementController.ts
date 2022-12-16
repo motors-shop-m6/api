@@ -7,6 +7,12 @@ export class AdvertisementController{
     const advertisementData: IAdvertisementRequest = req.body;
     const advertisement: IAdvertisementResponse = await AdvertisementService.create(advertisementData);
 
-    return res.status(201).json(advertisement);
+    return res.status(201).send(advertisement);
+  }
+
+  static readAll = async(req: Request, res: Response) => {
+    const advertisements = await AdvertisementService.readAll();
+
+    return res.send(advertisements)
   }
 }
