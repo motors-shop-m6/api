@@ -5,7 +5,6 @@ import fs from "fs";
 export const handleCloudinary = async (req: Request, res: Response) => {
   const cloudinaryResp: any = [];
   const files: any = req.files;
-  console.log(files)
   
   for (const file of files) {
     const upload = await cloudinary.uploader.upload(
@@ -23,8 +22,8 @@ export const handleCloudinary = async (req: Request, res: Response) => {
       }
     });
 
-    cloudinaryResp?.push(upload);
+    cloudinaryResp?.push(upload.url);
   }
   
-  return res.json("xd")
+  return res.json(cloudinaryResp)
 }
