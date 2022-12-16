@@ -1,7 +1,6 @@
 import { AppDataSource } from "../data-source";
 import { AdvertisementEntity } from "../entities/AdvertisementEntity";
 import { CoverImageEntity } from "../entities/CoverImageEntity";
-import { BadRequestError } from "../errors/AsyncErrorResponse";
 import { IAdvertisementRequest, IAdvertisementResponse } from "../interfaces/advertisementInterface";
 
 export class AdvertisementService{
@@ -35,7 +34,7 @@ export class AdvertisementService{
   static readById = async(id: string): Promise<IAdvertisementResponse> => {
     const advertisementRepository = AppDataSource.getRepository(AdvertisementEntity);
 
-    const advertisement = await advertisementRepository.findOne({
+    const advertisement = await advertisementRepository.find({
       where: {id},
       select: {
         coverImage: {
@@ -47,11 +46,32 @@ export class AdvertisementService{
       }
     });
 
-    if(!advertisement){
-      throw new BadRequestError("Invalid Ad Id");
-    }
+    return advertisement[0];
+  }
 
-    return advertisement
+  static updateById = async(id: string, advertisementData: Partial<IAdvertisementRequest>): Promise<IAdvertisementResponse> => {
+    const advertisementRepository = AppDataSource.getRepository(AdvertisementEntity);
+    const coverImageRepository = AppDataSource.getRepository(CoverImageEntity);
+
+    const advertisementUpdate = await advertisementRepository.findOneBy({id})
+
+    const updatedAt = new Date();
+    advertisementData.images?.map(async(image) => await coverImageRepository.save({image, advertisement: advertisementUpdate!}))
+    delete advertisementData.images
+    await advertisementRepository.update(id, Object.assign(advertisementUpdate!, {...advertisementData, updatedAt: updatedAt}))
+    
+    const advertisement = await advertisementRepository.find({where: {id},
+      select: {
+        coverImage: {
+          image: true
+        }
+      },
+      relations: {
+        coverImage: true
+      }
+    });
+
+    return advertisement[0]!;
   }
 
   static deleteById = async(id: string): Promise<void> => {
@@ -59,10 +79,6 @@ export class AdvertisementService{
 
     const advertisement = await advertisementRepository.findOneBy({id});
 
-    if(!advertisement){
-      throw new BadRequestError("Invalid Ad Id");
-    }
-
-    await advertisementRepository.update(id, Object.assign(advertisement, advertisement.isActive=false))
+    await advertisementRepository.update(id, Object.assign(advertisement!, advertisement!.isActive=false));
   }
 }
