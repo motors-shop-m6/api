@@ -1,5 +1,6 @@
 import { Exclude } from "class-transformer";
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { AddressEntity } from "./AddressEntity";
 
 @Entity("users")
 export class UserEntity{
@@ -34,6 +35,7 @@ export class UserEntity{
   @UpdateDateColumn({name: "updated_at"})
   updatedAt: Date;
 
-  // @OneToOne(()=> Address)
-  // address: Address
+  @OneToOne(()=> AddressEntity)
+  @JoinColumn()
+  address: AddressEntity
 }
