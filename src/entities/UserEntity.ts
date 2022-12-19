@@ -35,7 +35,7 @@ export class UserEntity{
   @UpdateDateColumn({name: "updated_at"})
   updatedAt: Date;
 
-  @OneToOne(()=> AddressEntity)
+  @OneToOne(()=> AddressEntity, () => AddressEntity)
   @JoinColumn()
   address: AddressEntity
 }
