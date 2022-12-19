@@ -53,9 +53,13 @@ export class UserService{
 
   static deleteById = async(id: string): Promise<void> => {
     const userRepository = AppDataSource.getRepository(UserEntity);
+    const addressRepository = AppDataSource.getRepository(AddressEntity);
 
-    const user = await userRepository.findOneBy({id});
+    const user = await userRepository.find({
+      where: {id}, relations: {address: true}
+    });
 
-    await userRepository.remove(user!);
+    await userRepository.remove(user[0]!);
+    await addressRepository.remove(user[0]!.address)
   }
 }
