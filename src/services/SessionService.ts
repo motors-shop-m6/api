@@ -1,4 +1,5 @@
 import { compareSync } from "bcryptjs";
+import "dotenv/config";
 import jwt from "jsonwebtoken";
 import { AppDataSource } from "../data-source";
 import { UserEntity } from "../entities/UserEntity";
@@ -20,7 +21,7 @@ export class SessionService{
       throw new BadRequestError("User not found");
     }
 
-    const session = jwt.sign({}, String(process.env.SECRET_KEY), {expiresIn: "1d", subject: user.id})
+    const session = jwt.sign({}, process.env.SECRET_KEY as string, {expiresIn: "1d", subject: user.id})
 
     return {token:session, id:user.id};
   }

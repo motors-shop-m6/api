@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { AdvertisementController } from "../controllers/AdvertisementController";
+import { handleAuthTokenMiddleware } from "../middlewares/handleAuthTokenMiddleware";
 import { handleCloudinary } from "../middlewares/handleCloudinary";
 import { handleAlreadyInactive } from "../middlewares/handleIdAlreadyInactiveMiddleware";
 import { handleAdsIdNotFoundOrInvalidId } from "../middlewares/handleIdNotFoundMiddleware";
@@ -11,6 +12,7 @@ const routes = Router();
 
 export const advertisementRoutes = () =>{
   routes.post("", 
+    handleAuthTokenMiddleware,
     handleSchemaMiddleware(
       AdvertisementSchema.create
     ), 
@@ -22,24 +24,28 @@ export const advertisementRoutes = () =>{
   );
 
   routes.get("/:id", 
+    handleAuthTokenMiddleware,
     handleAdsIdNotFoundOrInvalidId,
     handleAlreadyInactive,
     AdvertisementController.readById
   );
 
   routes.patch("/:id", 
+    handleAuthTokenMiddleware,
     handleAdsIdNotFoundOrInvalidId,
     handleAlreadyInactive,
     AdvertisementController.updateById
   );
 
   routes.delete("/:id", 
+    handleAuthTokenMiddleware,
     handleAdsIdNotFoundOrInvalidId,
     handleAlreadyInactive,
     AdvertisementController.deleteById
   );
 
-  routes.post("/cloudinary", 
+  routes.post("/cloudinary",  
+  handleAuthTokenMiddleware,
     upload.array("image", Infinity),
     handleCloudinary
   );
