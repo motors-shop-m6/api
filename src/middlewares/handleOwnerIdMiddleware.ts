@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { AppDataSource } from "../data-source";
+import { AdvertisementEntity } from "../entities/AdvertisementEntity";
 import { UserEntity } from "../entities/UserEntity";
-import { ForbiddenRequestError } from "../errors/AsyncErrorResponse";
+import { UnauthorizedRequestError } from "../errors/AsyncErrorResponse";
 
 export const handleOwnerIdMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   const id = req.user.id;
@@ -11,12 +12,29 @@ export const handleOwnerIdMiddleware = async (req: Request, res: Response, next:
   const user = await userRepository.findOneBy(paramsId);
 
   if(user!.id !== id){
-    throw new ForbiddenRequestError("User credentials invalid");
+    throw new UnauthorizedRequestError("User credentials invalid");
   }
 
-  // const advertisementRepository = AppDataSource.getRepository(AdvertisementEntity);
-  // const advertisement = await advertisementRepository.findOneBy({adId})
-  // logic ad 
+  next();
+}
+
+export const handleAdsOwnerIdMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+  const userId = req.user.id;
+  const paramsId = req.params;
+
+  const advertisementRepository = AppDataSource.getRepository(AdvertisementEntity);
+  const advertisement = await advertisementRepository.findOne({
+    where: {
+      id: paramsId.id
+    }, 
+    relations: {
+      user: true
+    }
+  })
+
+  if(advertisement!.user.id !== userId){
+    throw new UnauthorizedRequestError("User credentials invalid");
+  }
 
   next();
 }

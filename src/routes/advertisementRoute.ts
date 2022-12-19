@@ -4,6 +4,7 @@ import { handleAuthTokenMiddleware } from "../middlewares/handleAuthTokenMiddlew
 import { handleCloudinary } from "../middlewares/handleCloudinary";
 import { handleAlreadyInactive } from "../middlewares/handleIdAlreadyInactiveMiddleware";
 import { handleAdsIdNotFoundOrInvalidId } from "../middlewares/handleIdNotFoundMiddleware";
+import { handleAdsOwnerIdMiddleware } from "../middlewares/handleOwnerIdMiddleware";
 import { handleSchemaMiddleware } from "../middlewares/handleSchemaMiddleware";
 import { AdvertisementSchema } from "../schemas/AdvertisementSchema";
 import { upload } from "../utils/cloudinaryUtil";
@@ -34,6 +35,7 @@ export const advertisementRoutes = () =>{
     handleAuthTokenMiddleware,
     handleAdsIdNotFoundOrInvalidId,
     handleAlreadyInactive,
+    handleAdsOwnerIdMiddleware,
     AdvertisementController.updateById
   );
 
@@ -41,6 +43,7 @@ export const advertisementRoutes = () =>{
     handleAuthTokenMiddleware,
     handleAdsIdNotFoundOrInvalidId,
     handleAlreadyInactive,
+    handleAdsOwnerIdMiddleware,
     AdvertisementController.deleteById
   );
 

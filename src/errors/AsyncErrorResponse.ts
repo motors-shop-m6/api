@@ -13,6 +13,12 @@ export class BadRequestError extends AsyncErrorResponse {
   }
 }
 
+export class UnauthorizedRequestError extends AsyncErrorResponse {
+  constructor(message: string) {
+      super(message, 401);
+  }
+}
+
 export class ForbiddenRequestError extends AsyncErrorResponse {
   constructor(message: string) {
       super(message, 403);
