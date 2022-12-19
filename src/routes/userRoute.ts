@@ -2,6 +2,7 @@ import { Router } from "express";
 import { UserController } from "../controllers/UserController";
 import { handleAuthTokenMiddleware } from "../middlewares/handleAuthTokenMiddleware";
 import { handleAccountIdNotFoundOrInvalidId } from "../middlewares/handleIdNotFoundMiddleware";
+import { handleOwnerIdMiddleware } from "../middlewares/handleOwnerIdMiddleware";
 import { handleSchemaMiddleware } from "../middlewares/handleSchemaMiddleware";
 import { handleUserEmailOrSsnUniqueMiddleware } from "../middlewares/handleUserEmailOrSsnUniqueMiddleware";
 import { UserSchema } from "../schemas/UserSchema";
@@ -30,12 +31,14 @@ export const userRoutes = () =>{
   routes.patch("/:id", 
     handleAuthTokenMiddleware,
     handleAccountIdNotFoundOrInvalidId,
+    handleOwnerIdMiddleware,
     UserController.updateById
   );
 
   routes.delete("/:id", 
     handleAuthTokenMiddleware,
     handleAccountIdNotFoundOrInvalidId,
+    handleOwnerIdMiddleware,
     UserController.deleteById
   );
 
