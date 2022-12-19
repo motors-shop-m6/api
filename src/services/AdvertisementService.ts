@@ -13,4 +13,21 @@ export class AdvertisementService{
 
     return advertisement
   }
+
+  static readAll = async(): Promise<IAdvertisementResponse[]> => {
+    const advertisementRepository = AppDataSource.getRepository(AdvertisementEntity);
+
+    const advertisements = await advertisementRepository.find({
+      select: {
+        coverImage: {
+          image: true
+        }
+      },
+      relations: {
+        coverImage: true
+      }
+    });
+
+    return advertisements
+  }
 }
