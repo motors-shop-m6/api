@@ -1,6 +1,7 @@
 import { Exclude } from "class-transformer";
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { AddressEntity } from "./AddressEntity";
+import { AdvertisementEntity } from "./AdvertisementEntity";
 
 @Entity("users")
 export class UserEntity{
@@ -35,7 +36,10 @@ export class UserEntity{
   @UpdateDateColumn({name: "updated_at"})
   updatedAt: Date;
 
-  @OneToOne(()=> AddressEntity, () => AddressEntity)
+  @OneToMany(() => AdvertisementEntity, (Advertisement) => Advertisement.user)
+  vehicle: AddressEntity[];
+
+  @OneToOne(()=> AddressEntity, (Address) => Address)
   @JoinColumn()
   address: AddressEntity
 }

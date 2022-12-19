@@ -1,13 +1,15 @@
+import { instanceToPlain } from "class-transformer";
 import { Request, Response } from "express";
 import { IAdvertisementRequest, IAdvertisementResponse } from "../interfaces/advertisementInterface";
 import { AdvertisementService } from "../services/AdvertisementService";
 
 export class AdvertisementController{
   static create = async(req: Request, res: Response) => {
+    const id = req.user.id;
     const advertisementData: IAdvertisementRequest = req.body;
-    const advertisement: IAdvertisementResponse = await AdvertisementService.create(advertisementData);
+    const advertisement: IAdvertisementResponse = await AdvertisementService.create(id, advertisementData);
 
-    return res.status(201).send(advertisement);
+    return res.status(201).send(instanceToPlain(advertisement));
   }
 
   static readAll = async(req: Request, res: Response) => {
