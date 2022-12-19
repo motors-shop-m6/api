@@ -1,10 +1,11 @@
 export interface IAdvertisementRequest {
-  title:string;
+  title: string;
   year: string;
   km: string;
   price: number;
   description: string;
   typeOfVehicle: boolean;
+  images: string[];
 }
 
 export interface IAdvertisementResponse extends IAdvertisementRequest{

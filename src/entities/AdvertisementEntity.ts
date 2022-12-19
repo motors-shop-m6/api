@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { CoverImageEntity } from "./CoverImageEntity";
 
 @Entity("advertisements")
 export class AdvertisementEntity{
@@ -31,4 +32,7 @@ export class AdvertisementEntity{
 
   @UpdateDateColumn({name: "updated_at"})
   updatedAt: Date;
+
+  @OneToMany(()=> CoverImageEntity, (CoverImage)=> CoverImage.advertisement)
+  coverImage: CoverImageEntity[];
 }
