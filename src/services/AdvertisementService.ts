@@ -1,17 +1,20 @@
 import { AppDataSource } from "../data-source";
 import { AdvertisementEntity } from "../entities/AdvertisementEntity";
 import { CoverImageEntity } from "../entities/CoverImageEntity";
+import { UserEntity } from "../entities/UserEntity";
 import { IAdvertisementRequest, IAdvertisementResponse } from "../interfaces/advertisementInterface";
 
 export class AdvertisementService{
-  static create = async(advertisementData: IAdvertisementRequest): Promise<IAdvertisementResponse> => {
+  static create = async(id: string, advertisementData: IAdvertisementRequest): Promise<IAdvertisementResponse> => {
+    const userRepository = AppDataSource.getRepository(UserEntity);
     const advertisementRepository = AppDataSource.getRepository(AdvertisementEntity);
     const coverImageRepository = AppDataSource.getRepository(CoverImageEntity);
 
-    const advertisement = await advertisementRepository.save(advertisementData)
+    const user = await userRepository.findOneBy({id})
+    const advertisement = await advertisementRepository.save({...advertisementData, user: user!})
     advertisementData.images.forEach(async(image) => await coverImageRepository.save({image, advertisement}))
 
-    return advertisement
+    return advertisement;
   }
 
   static readAll = async(): Promise<IAdvertisementResponse[]> => {

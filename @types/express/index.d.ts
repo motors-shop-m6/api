@@ -2,6 +2,10 @@ import * as express from "express";
 
 declare global {
   namespace Express {
-    interface Request {}
+    interface Request {
+      user: {
+        id: string;
+      }
+    }
   }
 }

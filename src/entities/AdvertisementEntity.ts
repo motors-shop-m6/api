@@ -1,5 +1,7 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Exclude } from "class-transformer";
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { CoverImageEntity } from "./CoverImageEntity";
+import { UserEntity } from "./UserEntity";
 
 @Entity("advertisements")
 export class AdvertisementEntity{
@@ -32,6 +34,10 @@ export class AdvertisementEntity{
 
   @UpdateDateColumn({name: "updated_at"})
   updatedAt: Date;
+
+  @ManyToOne(()=> UserEntity)
+  @Exclude()
+  user: UserEntity; 
 
   @OneToMany(()=> CoverImageEntity, (CoverImage)=> CoverImage.advertisement)
   coverImage: CoverImageEntity[];

@@ -40,22 +40,37 @@ export class UserService{
 
   static updateById = async(id: string, userData: Partial<IUserRequest>): Promise<IUserResponse> => {
     const userRepository = AppDataSource.getRepository(UserEntity);
+    const addressRepository = AppDataSource.getRepository(AddressEntity);
 
-    const userUpdate = await userRepository.findOneBy({id})
+    const userUpdate = await userRepository.find({
+      where: {id}, relations: {address: true}
+    });
+    
+    const addressUpdate = await addressRepository.findOneBy({id: userUpdate[0].address.id});
+    
+    const address = userData.address;
+    delete userData.address;
 
     const updatedAt = new Date();
-    await userRepository.update(id, Object.assign(userUpdate!, {...userData, updatedAt: updatedAt}))
+    await userRepository.update(id, Object.assign(userUpdate[0]!, {...userData, updatedAt: updatedAt}));
+    // await addressRepository.update(addressUpdate!.id, Object.assign(addressUpdate!.id, {...address}));
     
-    const user = await userRepository.find({where: {id}});
+    const user = await userRepository.find({
+      where: {id}, relations: {address: true}
+    });
 
     return user[0]!;
   }
 
   static deleteById = async(id: string): Promise<void> => {
     const userRepository = AppDataSource.getRepository(UserEntity);
+    const addressRepository = AppDataSource.getRepository(AddressEntity);
 
-    const user = await userRepository.findOneBy({id});
+    const user = await userRepository.find({
+      where: {id}, relations: {address: true}
+    });
 
-    await userRepository.remove(user!);
+    await userRepository.remove(user[0]!);
+    await addressRepository.remove(user[0]!.address)
   }
 }

@@ -15,9 +15,9 @@ export const handleAuthTokenMiddleware = (req: Request, res: Response, next: Nex
       throw new BadRequestError("Invalid credentials");
     }
 
-    // req.user = {
-    //   id: decoded.sub
-    // }
+    req.user = {
+      id: decoded.sub
+    }
   })
   
   next();
