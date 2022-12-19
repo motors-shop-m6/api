@@ -1,6 +1,8 @@
 import "dotenv/config";
 import { DataSource } from "typeorm";
 
+
+
 export const AppDataSource = new DataSource(
   process.env.NODE_ENV === "test"
     ? {
@@ -17,9 +19,9 @@ export const AppDataSource = new DataSource(
         password: process.env.POSTGRES_PWD,
         database: process.env.POSTGRES_DB,
 
-        ssl: { rejectUnauthorized: false },
         synchronize: false,
         logging: true,
-        entities: ["dist/entities/*.js"],
+        entities: ["src/entities/*.ts"],
+        migrations: ["src/migrations/*.ts"],
       }
 );
