@@ -3,7 +3,7 @@ export interface ISessionRequest {
   password: string;
 }
 
-export interface ISessionResponse{
+export interface ISessionResponse {
   token: string;
   id: string;
 }

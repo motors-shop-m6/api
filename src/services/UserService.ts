@@ -4,73 +4,88 @@ import { AddressEntity } from "../entities/AddressEntity";
 import { UserEntity } from "../entities/UserEntity";
 import { IUserRequest, IUserResponse } from "../interfaces/userInterface";
 
-export class UserService{
-  static create = async(userData: IUserRequest): Promise<IUserResponse> => {
+export class UserService {
+  static create = async (userData: IUserRequest): Promise<IUserResponse> => {
     const userRepository = AppDataSource.getRepository(UserEntity);
     const addressRepository = AppDataSource.getRepository(AddressEntity);
 
-    userData.password = hashSync(userData.password, 10)
-    
-    const address = await addressRepository.save({...userData.address})
-    const newUser = await userRepository.save({...userData, address: address})
+    userData.password = hashSync(userData.password, 10);
+
+    const address = await addressRepository.save({ ...userData.address });
+    const newUser = await userRepository.save({
+      ...userData,
+      address: address,
+    });
 
     const user: IUserResponse = newUser;
-    delete user.password
+    delete user.password;
 
-    return user
-  }
+    return user;
+  };
 
-  static readAll = async(): Promise<IUserResponse[]> => {
+  static readAll = async (): Promise<IUserResponse[]> => {
     const userRepository = AppDataSource.getRepository(UserEntity);
 
-    const users = await userRepository.find({relations: {address: true}});
+    const users = await userRepository.find({ relations: { address: true } });
 
-    return users
-  }
+    return users;
+  };
 
-  static readById = async(id: string): Promise<IUserResponse> => {
+  static readById = async (id: string): Promise<IUserResponse> => {
     const userRepository = AppDataSource.getRepository(UserEntity);
 
     const user = await userRepository.find({
-      where: {id}, relations: {address: true}
+      where: { id },
+      relations: { address: true },
     });
 
     return user[0];
-  }
+  };
 
-  static updateById = async(id: string, userData: Partial<IUserRequest>): Promise<IUserResponse> => {
+  static updateById = async (
+    id: string,
+    userData: Partial<IUserRequest>
+  ): Promise<IUserResponse> => {
     const userRepository = AppDataSource.getRepository(UserEntity);
     const addressRepository = AppDataSource.getRepository(AddressEntity);
 
     const userUpdate = await userRepository.find({
-      where: {id}, relations: {address: true}
+      where: { id },
+      relations: { address: true },
     });
-    
-    const addressUpdate = await addressRepository.findOneBy({id: userUpdate[0].address.id});
-    
+
+    const addressUpdate = await addressRepository.findOneBy({
+      id: userUpdate[0].address.id,
+    });
+
     const address = userData.address;
     delete userData.address;
 
     const updatedAt = new Date();
-    await userRepository.update(id, Object.assign(userUpdate[0]!, {...userData, updatedAt: updatedAt}));
+    await userRepository.update(
+      id,
+      Object.assign(userUpdate[0]!, { ...userData, updatedAt: updatedAt })
+    );
     // await addressRepository.update(addressUpdate!.id, Object.assign(addressUpdate!.id, {...address}));
-    
+
     const user = await userRepository.find({
-      where: {id}, relations: {address: true}
+      where: { id },
+      relations: { address: true },
     });
 
     return user[0]!;
-  }
+  };
 
-  static deleteById = async(id: string): Promise<void> => {
+  static deleteById = async (id: string): Promise<void> => {
     const userRepository = AppDataSource.getRepository(UserEntity);
     const addressRepository = AppDataSource.getRepository(AddressEntity);
 
     const user = await userRepository.find({
-      where: {id}, relations: {address: true}
+      where: { id },
+      relations: { address: true },
     });
 
     await userRepository.remove(user[0]!);
-    await addressRepository.remove(user[0]!.address)
-  }
+    await addressRepository.remove(user[0]!.address);
+  };
 }

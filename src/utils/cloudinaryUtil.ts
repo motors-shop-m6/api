@@ -5,7 +5,7 @@ import multer from "multer";
 const CLOUDINARY_URL = cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
   api_key: process.env.CLOUDINARY_API,
-  api_secret: process.env.CLOUDINARY_SECRET
+  api_secret: process.env.CLOUDINARY_SECRET,
 });
 
 export const upload = multer({
@@ -14,7 +14,7 @@ export const upload = multer({
     filename: (_, file, callback) => {
       const filname = `${file.originalname}`;
 
-      return callback(null, filname)
-    }
-  })
-})
+      return callback(null, filname);
+    },
+  }),
+});

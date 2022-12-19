@@ -1,20 +1,27 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
 import { AdvertisementEntity } from "./AdvertisementEntity";
 
 @Entity("images")
-export class CoverImageEntity{
+export class CoverImageEntity {
   @PrimaryGeneratedColumn("uuid")
-  readonly id: string
+  readonly id: string;
 
-  @Column({type: "varchar"})
-  image: string
+  @Column({ type: "varchar" })
+  image: string;
 
-  @CreateDateColumn({name: "added_at"})
+  @CreateDateColumn({ name: "added_at" })
   addedAt: Date;
 
-  @UpdateDateColumn({name: "removed_at"})
+  @UpdateDateColumn({ name: "removed_at" })
   updatedAt: Date;
 
-  @ManyToOne(()=> AdvertisementEntity)
-  advertisement: AdvertisementEntity; 
+  @ManyToOne(() => AdvertisementEntity)
+  advertisement: AdvertisementEntity;
 }

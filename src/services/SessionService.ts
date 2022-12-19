@@ -4,25 +4,33 @@ import jwt from "jsonwebtoken";
 import { AppDataSource } from "../data-source";
 import { UserEntity } from "../entities/UserEntity";
 import { BadRequestError } from "../errors/AsyncErrorResponse";
-import { ISessionRequest, ISessionResponse } from "../interfaces/sessionInterface";
+import {
+  ISessionRequest,
+  ISessionResponse,
+} from "../interfaces/sessionInterface";
 
-export class SessionService{
-  static create = async(sessionData: ISessionRequest): Promise<ISessionResponse> => {
+export class SessionService {
+  static create = async (
+    sessionData: ISessionRequest
+  ): Promise<ISessionResponse> => {
     const userRepository = AppDataSource.getRepository(UserEntity);
-    const user = await userRepository.findOneBy({email: sessionData.email});
+    const user = await userRepository.findOneBy({ email: sessionData.email });
 
-    if(!user){
+    if (!user) {
       throw new BadRequestError("User not found");
     }
 
-    const matchPassword =  compareSync(sessionData.password, user.password);
+    const matchPassword = compareSync(sessionData.password, user.password);
 
-    if(!matchPassword){
+    if (!matchPassword) {
       throw new BadRequestError("User not found");
     }
 
-    const session = jwt.sign({}, process.env.SECRET_KEY as string, {expiresIn: "1d", subject: user.id})
+    const session = jwt.sign({}, process.env.SECRET_KEY as string, {
+      expiresIn: "1d",
+      subject: user.id,
+    });
 
-    return {token:session, id:user.id};
-  }
+    return { token: session, id: user.id };
+  };
 }
