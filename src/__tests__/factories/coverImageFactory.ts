@@ -1,8 +1,8 @@
-import { IAdvertisementRequest } from "../../interfaces/advertisementInterface";
+import { ICoverImage } from "../../interfaces/coverImageInterface";
 
-type OverrideAdvertisement = Partial<IAdvertisementRequest>;
+type OverrideCoverImage = Partial<ICoverImage>;
 
-export const makeAdvertisement = (advertisement: OverrideAdvertisement = {}) => 
+export const makeCoverImage = (coverImage: OverrideCoverImage = {}) => 
   ( 
     {
       title: "Example_Ads",
@@ -13,6 +13,6 @@ export const makeAdvertisement = (advertisement: OverrideAdvertisement = {}) =>
       images:[ "http://res.cloudinary.com/tmartins/image/upload/v1671212359/motorshop/yqmebfb78ion0izouiee.png",							
       "http://res.cloudinary.com/tmartins/image/upload/v1671216063/motorshop/olhwamqxeawfw4l2ftox.png"],
       typeOfVehicle: false,
-      ...advertisement
+      ...coverImage
     }
   )
