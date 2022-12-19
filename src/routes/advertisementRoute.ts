@@ -2,7 +2,7 @@ import { Router } from "express";
 import { AdvertisementController } from "../controllers/AdvertisementController";
 import { handleCloudinary } from "../middlewares/handleCloudinary";
 import { handleAlreadyInactive } from "../middlewares/handleIdAlreadyInactiveMiddleware";
-import { handleIdNotFoundOrInvalidId } from "../middlewares/handleIdNotFoundMiddleware";
+import { handleAdsIdNotFoundOrInvalidId } from "../middlewares/handleIdNotFoundMiddleware";
 import { handleSchemaMiddleware } from "../middlewares/handleSchemaMiddleware";
 import { AdvertisementSchema } from "../schemas/AdvertisementSchema";
 import { upload } from "../utils/cloudinaryUtil";
@@ -22,19 +22,19 @@ export const advertisementRoutes = () =>{
   );
 
   routes.get("/:id", 
-    handleIdNotFoundOrInvalidId,
+    handleAdsIdNotFoundOrInvalidId,
     handleAlreadyInactive,
     AdvertisementController.readById
   );
 
   routes.patch("/:id", 
-    handleIdNotFoundOrInvalidId,
+    handleAdsIdNotFoundOrInvalidId,
     handleAlreadyInactive,
     AdvertisementController.updateById
   );
 
   routes.delete("/:id", 
-    handleIdNotFoundOrInvalidId,
+    handleAdsIdNotFoundOrInvalidId,
     handleAlreadyInactive,
     AdvertisementController.deleteById
   );

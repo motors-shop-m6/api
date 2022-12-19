@@ -53,6 +53,5 @@ export class UserService{
     const user = await userRepository.findOneBy({id});
 
     await userRepository.remove(user!);
-    // await userRepository.delete(user!);
   }
 }

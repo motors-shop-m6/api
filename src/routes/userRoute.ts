@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { UserController } from "../controllers/UserController";
-import { handleIdNotFoundOrInvalidId } from "../middlewares/handleIdNotFoundMiddleware";
+import { handleAccountIdNotFoundOrInvalidId } from "../middlewares/handleIdNotFoundMiddleware";
 import { handleSchemaMiddleware } from "../middlewares/handleSchemaMiddleware";
 import { handleUserEmailOrSsnUniqueMiddleware } from "../middlewares/handleUserEmailOrSsnUniqueMiddleware";
 import { UserSchema } from "../schemas/UserSchema";
@@ -21,17 +21,17 @@ export const userRoutes = () =>{
   );
 
   routes.get("/:id", 
-    handleIdNotFoundOrInvalidId,
+    handleAccountIdNotFoundOrInvalidId,
     UserController.readById
   );
 
   routes.patch("/:id", 
-    handleIdNotFoundOrInvalidId,
+    handleAccountIdNotFoundOrInvalidId,
     UserController.updateById
   );
 
   routes.delete("/:id", 
-    handleIdNotFoundOrInvalidId,
+    handleAccountIdNotFoundOrInvalidId,
     UserController.deleteById
   );
 
