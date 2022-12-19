@@ -23,6 +23,11 @@ export const advertisementRoutes = () =>{
     AdvertisementController.readById
   );
 
+  routes.delete("/:id", 
+    AdvertisementController.deleteById
+  );
+
+
   routes.post("/cloudinary", 
     upload.array("image", Infinity),
     handleCloudinary

@@ -22,4 +22,11 @@ export class AdvertisementController{
 
     return res.send(advertisements)
   }
+
+  static deleteById = async(req: Request, res: Response) => {
+    const { id } = req.params    
+    await AdvertisementService.deleteById(id);
+
+    return res.status(204).send()
+  }
 }
