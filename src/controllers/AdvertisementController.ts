@@ -23,6 +23,15 @@ export class AdvertisementController{
     return res.send(advertisements)
   }
 
+  static updateById = async(req: Request, res: Response) => {
+    const { id } = req.params;
+    const advertisementData = req.body;
+
+    const advertisement = await AdvertisementService.updateById(id, advertisementData);
+
+    return res.json(advertisement);
+  }
+
   static deleteById = async(req: Request, res: Response) => {
     const { id } = req.params    
     await AdvertisementService.deleteById(id);
