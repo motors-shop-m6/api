@@ -3,10 +3,10 @@ import "dotenv/config";
 import jwt from "jsonwebtoken";
 import { AppDataSource } from "../data-source";
 import { UserEntity } from "../entities/UserEntity";
-import { BadRequestError } from "../errors/AsyncErrorResponse";
+import { ForbiddenRequestError } from "../errors/AsyncErrorResponse";
 import {
   ISessionRequest,
-  ISessionResponse,
+  ISessionResponse
 } from "../interfaces/sessionInterface";
 
 export class SessionService {
@@ -17,13 +17,13 @@ export class SessionService {
     const user = await userRepository.findOneBy({ email: sessionData.email });
 
     if (!user) {
-      throw new BadRequestError("User not found");
+      throw new ForbiddenRequestError("Invalid Credentials");
     }
 
     const matchPassword = compareSync(sessionData.password, user.password);
 
     if (!matchPassword) {
-      throw new BadRequestError("User not found");
+      throw new ForbiddenRequestError("Invalid Credentials");
     }
 
     const session = jwt.sign({}, process.env.SECRET_KEY as string, {
