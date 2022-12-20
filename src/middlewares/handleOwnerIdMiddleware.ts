@@ -4,6 +4,7 @@ import { AdvertisementEntity } from "../entities/AdvertisementEntity";
 import { UserEntity } from "../entities/UserEntity";
 import { UnauthorizedRequestError } from "../errors/AsyncErrorResponse";
 
+
 export const handleOwnerIdMiddleware = async (
   req: Request,
   res: Response,
