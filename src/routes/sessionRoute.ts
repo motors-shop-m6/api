@@ -5,12 +5,12 @@ import { SessionSchema } from "../schemas/sessionSchema";
 
 const routes = Router();
 
-export const sessionRoutes = () =>{
-  routes.post("", 
+export const sessionRoutes = () => {
+  routes.post(
+    "",
     handleSchemaMiddleware(SessionSchema.create),
     SessionController.create
   );
 
   return routes;
-}
-
+};

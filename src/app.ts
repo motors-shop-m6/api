@@ -8,8 +8,8 @@ import { appRoutes } from "./routes";
 export const app = express();
 app.use(express.json());
 
-appRoutes(app)
-app.use(handleAsyncErrorResponseMiddleware)
+appRoutes(app);
+app.use(handleAsyncErrorResponseMiddleware);
 
 const options: cors.CorsOptions = {
   methods: "GET, POST, PATCH, DELETE",

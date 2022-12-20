@@ -11,27 +11,26 @@ import { upload } from "../utils/cloudinaryUtil";
 
 const routes = Router();
 
-export const advertisementRoutes = () =>{
-  routes.post("", 
+export const advertisementRoutes = () => {
+  routes.post(
+    "",
     handleAuthTokenMiddleware,
-    handleSchemaMiddleware(
-      AdvertisementSchema.create
-    ), 
+    handleSchemaMiddleware(AdvertisementSchema.create),
     AdvertisementController.create
   );
 
-  routes.get("/list", 
-    AdvertisementController.readAll
-  );
+  routes.get("/list", AdvertisementController.readAll);
 
-  routes.get("/:id", 
+  routes.get(
+    "/:id",
     handleAuthTokenMiddleware,
     handleAdsIdNotFoundOrInvalidId,
     handleAlreadyInactive,
     AdvertisementController.readById
   );
 
-  routes.patch("/:id", 
+  routes.patch(
+    "/:id",
     handleAuthTokenMiddleware,
     handleAdsIdNotFoundOrInvalidId,
     handleAlreadyInactive,
@@ -39,7 +38,8 @@ export const advertisementRoutes = () =>{
     AdvertisementController.updateById
   );
 
-  routes.delete("/:id", 
+  routes.delete(
+    "/:id",
     handleAuthTokenMiddleware,
     handleAdsIdNotFoundOrInvalidId,
     handleAlreadyInactive,
@@ -47,12 +47,12 @@ export const advertisementRoutes = () =>{
     AdvertisementController.deleteById
   );
 
-  routes.post("/cloudinary",  
-  handleAuthTokenMiddleware,
+  routes.post(
+    "/cloudinary",
+    handleAuthTokenMiddleware,
     upload.array("image", Infinity),
     handleCloudinary
   );
 
   return routes;
-}
-
+};

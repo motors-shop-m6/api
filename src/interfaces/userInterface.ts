@@ -11,7 +11,7 @@ export interface IUserRequest {
   address: IAddress;
 }
 
-export interface IUserResponse extends Partial<IUserRequest>{
+export interface IUserResponse extends Partial<IUserRequest> {
   id: string;
   createdAt: Date;
   updatedAt: Date;

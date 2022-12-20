@@ -8,7 +8,7 @@ export interface IAdvertisementRequest {
   images: string[];
 }
 
-export interface IAdvertisementResponse extends Partial<IAdvertisementRequest>{
+export interface IAdvertisementResponse extends Partial<IAdvertisementRequest> {
   id: string;
   isActive: boolean;
   createdAt: Date;

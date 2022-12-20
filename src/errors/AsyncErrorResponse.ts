@@ -2,14 +2,26 @@ export class AsyncErrorResponse extends Error {
   public readonly statusCode: number;
 
   constructor(message: string, statusCode: number) {
-      super(message);
-      this.statusCode = statusCode;
+    super(message);
+    this.statusCode = statusCode;
   }
 }
 
 export class BadRequestError extends AsyncErrorResponse {
   constructor(message: string) {
-      super(message, 400);
+    super(message, 400);
+  }
+}
+
+export class UnauthorizedRequestError extends AsyncErrorResponse {
+  constructor(message: string) {
+    super(message, 401);
+  }
+}
+
+export class ForbiddenRequestError extends AsyncErrorResponse {
+  constructor(message: string) {
+    super(message, 403);
   }
 }
 
@@ -27,6 +39,6 @@ export class ForbiddenRequestError extends AsyncErrorResponse {
 
 export class NotFoundError extends AsyncErrorResponse {
   constructor(message: string) {
-      super(message, 404);
+    super(message, 404);
   }
 }

@@ -5,36 +5,45 @@ import { UserEntity } from "../entities/UserEntity";
 import { BadRequestError } from "../errors/AsyncErrorResponse";
 import { regexExp } from "../utils/regexUtil";
 
-export const handleAdsIdNotFoundOrInvalidId = async(req: Request, res: Response, next: NextFunction) => { 
+export const handleAdsIdNotFoundOrInvalidId = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { id } = req.params;
 
-  if(!regexExp.uuid.test(id)){
+  if (!regexExp.uuid.test(id)) {
     throw new BadRequestError("Invalid Id Format");
   }
 
-  const advertisementRepository = AppDataSource.getRepository(AdvertisementEntity);
-  const advertisementNotFound = await advertisementRepository.findOneBy({id})
+  const advertisementRepository =
+    AppDataSource.getRepository(AdvertisementEntity);
+  const advertisementNotFound = await advertisementRepository.findOneBy({ id });
 
-  if(!advertisementNotFound){
+  if (!advertisementNotFound) {
     throw new BadRequestError("Invalid Ad Id");
   }
 
-  next()
-}
+  next();
+};
 
-export const handleAccountIdNotFoundOrInvalidId = async(req: Request, res: Response, next: NextFunction) => { 
+export const handleAccountIdNotFoundOrInvalidId = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { id } = req.params;
 
-  if(!regexExp.uuid.test(id)){
+  if (!regexExp.uuid.test(id)) {
     throw new BadRequestError("Invalid Id Format");
   }
 
   const userRepository = AppDataSource.getRepository(UserEntity);
-  const userNotFound = await userRepository.findOneBy({id})
+  const userNotFound = await userRepository.findOneBy({ id });
 
-  if(!userNotFound){
+  if (!userNotFound) {
     throw new BadRequestError("Invalid user Id");
   }
 
-  next()
-}
+  next();
+};

@@ -1,6 +1,6 @@
 import { IAdvertisementResponse } from "./advertisementInterface";
 
-export interface ICoverImage{
+export interface ICoverImage {
   id: string;
   image: string;
   addedAt: Date;

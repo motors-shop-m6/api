@@ -1,45 +1,54 @@
 import { Exclude } from "class-transformer";
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
 import { AddressEntity } from "./AddressEntity";
 import { AdvertisementEntity } from "./AdvertisementEntity";
 
 @Entity("users")
-export class UserEntity{
+export class UserEntity {
   @PrimaryGeneratedColumn("uuid")
   readonly id: string;
 
-  @Column({type: "varchar", length: 100})
+  @Column({ type: "varchar", length: 100 })
   name: string;
 
-  @Column({type: "varchar", length: 127, unique: true})
+  @Column({ type: "varchar", length: 127, unique: true })
   email: string;
 
-  @Column({type: "varchar"})
+  @Column({ type: "varchar" })
   @Exclude()
   password: string;
-  
-  @Column({type: "varchar", length:11, unique: true})
+
+  @Column({ type: "varchar", length: 11, unique: true })
   cpf: string;
 
-  @Column({type: "varchar", length:11})
+  @Column({ type: "varchar", length: 11 })
   phone: string;
 
-  @Column({name: "birth_date", type: "date"})
+  @Column({ name: "birth_date", type: "date" })
   birthDate: string;
 
-  @Column({type: "text"})
+  @Column({ type: "text" })
   description: string;
 
-  @CreateDateColumn({name: "created_at"})
+  @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
 
-  @UpdateDateColumn({name: "updated_at"})
+  @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
 
   @OneToMany(() => AdvertisementEntity, (Advertisement) => Advertisement.user)
   vehicle: AddressEntity[];
 
-  @OneToOne(()=> AddressEntity, (Address) => Address)
+  @OneToOne(() => AddressEntity, (Address) => Address)
   @JoinColumn()
-  address: AddressEntity
+  address: AddressEntity;
 }
