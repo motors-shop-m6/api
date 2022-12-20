@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { BadRequestError } from "../errors/AsyncErrorResponse";
+import { ForbiddenRequestError } from "../errors/AsyncErrorResponse";
 
 export const handleAuthTokenMiddleware = (req: Request, res: Response, next: NextFunction) =>{
   let token = req.headers.authorization;
@@ -12,11 +12,11 @@ export const handleAuthTokenMiddleware = (req: Request, res: Response, next: Nex
 
   jwt.verify(token as string, process.env.SECRET_KEY as string, (err: any, decoded: any) => {
     if(err){
-      throw new BadRequestError("Invalid credentials");
+      throw new ForbiddenRequestError("Invalid credentials");
     }
 
     req.user = {
-      id: decoded.sub
+      id: decoded.sub,
     }
   })
   
