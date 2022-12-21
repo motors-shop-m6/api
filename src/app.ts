@@ -13,6 +13,6 @@ export const app = express();
 app.use(express.json());
 app.use(cors(options));
 
-appRoutes(app)
-app.use(handleAsyncErrorResponseMiddleware)
+appRoutes(app);
+app.use(handleAsyncErrorResponseMiddleware);
 

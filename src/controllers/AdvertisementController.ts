@@ -1,43 +1,50 @@
 import { instanceToPlain } from "class-transformer";
 import { Request, Response } from "express";
-import { IAdvertisementRequest, IAdvertisementResponse } from "../interfaces/advertisementInterface";
+import {
+  IAdvertisementRequest,
+  IAdvertisementResponse,
+} from "../interfaces/advertisementInterface";
 import { AdvertisementService } from "../services/AdvertisementService";
 
-export class AdvertisementController{
-  static create = async(req: Request, res: Response) => {
+export class AdvertisementController {
+  static create = async (req: Request, res: Response) => {
     const id = req.user.id;
     const advertisementData: IAdvertisementRequest = req.body;
-    const advertisement: IAdvertisementResponse = await AdvertisementService.create(id, advertisementData);
+    const advertisement: IAdvertisementResponse =
+      await AdvertisementService.create(id, advertisementData);
 
     return res.status(201).send(instanceToPlain(advertisement));
-  }
+  };
 
-  static readAll = async(req: Request, res: Response) => {
+  static readAll = async (req: Request, res: Response) => {
     const advertisements = await AdvertisementService.readAll();
 
-    return res.send(advertisements)
-  }
+    return res.send(advertisements);
+  };
 
-  static readById = async(req: Request, res: Response) => {
-    const { id } = req.params    
+  static readById = async (req: Request, res: Response) => {
+    const { id } = req.params;
     const advertisements = await AdvertisementService.readById(id);
 
-    return res.send(advertisements)
-  }
+    return res.send(advertisements);
+  };
 
-  static updateById = async(req: Request, res: Response) => {
+  static updateById = async (req: Request, res: Response) => {
     const { id } = req.params;
     const advertisementData = req.body;
 
-    const advertisement = await AdvertisementService.updateById(id, advertisementData);
+    const advertisement = await AdvertisementService.updateById(
+      id,
+      advertisementData
+    );
 
     return res.json(advertisement);
-  }
+  };
 
-  static deleteById = async(req: Request, res: Response) => {
-    const { id } = req.params    
+  static deleteById = async (req: Request, res: Response) => {
+    const { id } = req.params;
     await AdvertisementService.deleteById(id);
 
-    return res.status(204).send()
-  }
+    return res.status(204).send();
+  };
 }
