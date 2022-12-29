@@ -4,7 +4,8 @@ export interface IAdvertisementRequest {
   km: string;
   price: number;
   description: string;
-  typeOfVehicle: boolean;
+  typeOfVehicle: string;
+  coverImage: string;
   images: string[];
 }
 

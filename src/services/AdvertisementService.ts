@@ -1,10 +1,10 @@
 import { AppDataSource } from "../data-source";
 import { AdvertisementEntity } from "../entities/AdvertisementEntity";
-import { CoverImageEntity } from "../entities/CoverImageEntity";
+import { ImageEntity } from "../entities/ImageEntity";
 import { UserEntity } from "../entities/UserEntity";
 import {
   IAdvertisementRequest,
-  IAdvertisementResponse,
+  IAdvertisementResponse
 } from "../interfaces/advertisementInterface";
 
 export class AdvertisementService {
@@ -15,7 +15,7 @@ export class AdvertisementService {
     const userRepository = AppDataSource.getRepository(UserEntity);
     const advertisementRepository =
       AppDataSource.getRepository(AdvertisementEntity);
-    const coverImageRepository = AppDataSource.getRepository(CoverImageEntity);
+    const imageRepository = AppDataSource.getRepository(ImageEntity);
 
     const user = await userRepository.findOneBy({ id });
     const advertisement = await advertisementRepository.save({
@@ -23,7 +23,7 @@ export class AdvertisementService {
       user: user!,
     });
     advertisementData.images.forEach(
-      async (image) => await coverImageRepository.save({ image, advertisement })
+      async (image) => await imageRepository.save({ image, advertisement })
     );
 
     return advertisement;
@@ -35,12 +35,12 @@ export class AdvertisementService {
 
     const advertisements = await advertisementRepository.find({
       select: {
-        coverImage: {
+        image: {
           image: true,
         },
       },
       relations: {
-        coverImage: true,
+        image: true,
       },
     });
 
@@ -54,12 +54,12 @@ export class AdvertisementService {
     const advertisement = await advertisementRepository.find({
       where: { id },
       select: {
-        coverImage: {
+        image: {
           image: true,
         },
       },
       relations: {
-        coverImage: true,
+        image: true,
       },
     });
 
@@ -72,14 +72,14 @@ export class AdvertisementService {
   ): Promise<IAdvertisementResponse> => {
     const advertisementRepository =
       AppDataSource.getRepository(AdvertisementEntity);
-    const coverImageRepository = AppDataSource.getRepository(CoverImageEntity);
+    const imageRepository = AppDataSource.getRepository(ImageEntity);
 
     const advertisementUpdate = await advertisementRepository.findOneBy({ id });
 
     const updatedAt = new Date();
     advertisementData.images?.map(
       async (image) =>
-        await coverImageRepository.save({
+        await imageRepository.save({
           image,
           advertisement: advertisementUpdate!,
         })
@@ -96,12 +96,12 @@ export class AdvertisementService {
     const advertisement = await advertisementRepository.find({
       where: { id },
       select: {
-        coverImage: {
+        image: {
           image: true,
         },
       },
       relations: {
-        coverImage: true,
+        image: true,
       },
     });
 

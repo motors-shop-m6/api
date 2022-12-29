@@ -6,9 +6,9 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
+  UpdateDateColumn
 } from "typeorm";
-import { CoverImageEntity } from "./CoverImageEntity";
+import { ImageEntity } from "./ImageEntity";
 import { UserEntity } from "./UserEntity";
 
 @Entity("advertisements")
@@ -31,8 +31,8 @@ export class AdvertisementEntity {
   @Column({ type: "text" })
   description: string;
 
-  @Column({ name: "type_of_vehicle" })
-  typeOfVehicle: boolean;
+  @Column({ name: "type_of_vehicle", length: 5, default: "carro" })
+  typeOfVehicle: string;
 
   @Column({ name: "is_active", default: "true" })
   isActive: boolean;
@@ -43,10 +43,13 @@ export class AdvertisementEntity {
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
 
+  @Column({name: "cover_image", type: "text"})
+  coverImage: string;
+
   @ManyToOne(() => UserEntity)
   @Exclude()
   user: UserEntity;
 
-  @OneToMany(() => CoverImageEntity, (CoverImage) => CoverImage.advertisement)
-  coverImage: CoverImageEntity[];
+  @OneToMany(() => ImageEntity, (Image) => Image.advertisement)
+  image: ImageEntity[];
 }

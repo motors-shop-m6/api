@@ -39,4 +39,12 @@ export class UserController {
 
     return res.status(204).send();
   };
+
+  static profile = async(req: Request, res: Response)=>{
+    const {id} = req.params;
+      
+    const user = await UserService.profile(id);
+
+    return res.status(200).send(user);
+  }
 }

@@ -3,9 +3,7 @@ import { UserController } from "../controllers/UserController";
 import { handleAuthTokenMiddleware } from "../middlewares/handleAuthTokenMiddleware";
 import { handleAccountIdNotFoundOrInvalidId } from "../middlewares/handleIdNotFoundMiddleware";
 import { handleOwnerIdMiddleware } from "../middlewares/handleOwnerIdMiddleware";
-import { handleSchemaMiddleware } from "../middlewares/handleSchemaMiddleware";
 import { handleUserEmailOrSsnUniqueMiddleware } from "../middlewares/handleUserEmailOrSsnUniqueMiddleware";
-import { UserSchema } from "../schemas/UserSchema";
 
 const routes = Router();
 
@@ -43,6 +41,12 @@ export const userRoutes = () => {
     handleOwnerIdMiddleware,
     UserController.deleteById
   );
+
+  routes.get(
+    "/:id/profile", 
+    handleAccountIdNotFoundOrInvalidId, 
+    UserController.profile
+  )
 
   return routes;
 };
