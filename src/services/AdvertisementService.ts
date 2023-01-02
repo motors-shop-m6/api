@@ -34,14 +34,7 @@ export class AdvertisementService {
       AppDataSource.getRepository(AdvertisementEntity);
 
     const advertisements = await advertisementRepository.find({
-      select: {
-        image: {
-          image: true,
-        },
-      },
-      relations: {
-        image: true,
-      },
+      select: {image: {image: true}, user: {name: true}}, relations: {image:true, user: true}
     });
 
     return advertisements;
