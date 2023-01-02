@@ -139,7 +139,7 @@
       "url",
       "url"
     ],
-    "typeOfVehicle": false
+    "typeOfVehicle": "carro"
   }
 ```
 
@@ -157,7 +157,7 @@
       "url",
       "url"
     ],
-    "typeOfVehicle": false,
+    "typeOfVehicle": "carro",
     "user": {},
     "id": "6e61bad1-ce76-493e-8ea4-50eadb46e33d",
     "isActive": true,
@@ -194,7 +194,7 @@
       "km": "260600",
       "price": "20603000.00",
       "description": "Ads description example",
-      "typeOfVehicle": false,
+      "typeOfVehicle": "carro",
       "isActive": true,
       "createdAt": "2022-12-19T13:16:13.860Z",
       "updatedAt": "2022-12-19T13:16:13.860Z",
@@ -223,7 +223,7 @@
 	"km": "260600",
 	"price": "20603000.00",
 	"description": "Ads description example",
-	"typeOfVehicle": false,
+	"typeOfVehicle": "carro",
 	"isActive": true,
 	"createdAt": "2022-12-20T11:21:05.546Z",
 	"updatedAt": "2022-12-20T11:21:05.546Z",
@@ -280,7 +280,7 @@ Status -> 200 OK
 		"price": "150.00",
 		"description": "Ads updated description example",
 		"images":[],
-		"typeOfVehicle": false
+		"typeOfVehicle": "carro"
   }
 ```
 
@@ -294,7 +294,7 @@ Status -> 200 OK
 	"km": "2606",
 	"price": "150.00",
 	"description": "Ads updated description example",
-	"typeOfVehicle": false,
+	"typeOfVehicle": "carro",
 	"isActive": true,
 	"createdAt": "2022-12-20T11:28:10.480Z",
 	"updatedAt": "2022-12-20T11:31:56.043Z",

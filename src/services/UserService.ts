@@ -66,7 +66,6 @@ export class UserService {
       id,
       Object.assign(userUpdate[0]!, { ...userData, updatedAt: updatedAt })
     );
-    // await addressRepository.update(addressUpdate!.id, Object.assign(addressUpdate!.id, {...address}));
 
     const user = await userRepository.find({
       where: { id },
@@ -88,4 +87,12 @@ export class UserService {
     await userRepository.remove(user[0]!);
     await addressRepository.remove(user[0]!.address);
   };
+
+  static profile = async(id: string): Promise<IUserResponse>=>{
+    const userRepository = AppDataSource.getRepository(UserEntity);
+
+    const user = await userRepository.findOne({where:{id}, relations:{vehicle: true}});
+
+    return user!;
+  }
 }

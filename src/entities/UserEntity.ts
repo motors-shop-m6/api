@@ -7,7 +7,7 @@ import {
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
+  UpdateDateColumn
 } from "typeorm";
 import { AddressEntity } from "./AddressEntity";
 import { AdvertisementEntity } from "./AdvertisementEntity";
@@ -46,7 +46,7 @@ export class UserEntity {
   updatedAt: Date;
 
   @OneToMany(() => AdvertisementEntity, (Advertisement) => Advertisement.user)
-  vehicle: AddressEntity[];
+  vehicle: AdvertisementEntity[];
 
   @OneToOne(() => AddressEntity, (Address) => Address)
   @JoinColumn()

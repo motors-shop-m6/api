@@ -12,7 +12,7 @@ export const makeAdvertisement = (advertisement: OverrideAdvertisement = {}) =>
       description: "Ads description example",
       images:[ "http://res.cloudinary.com/tmartins/image/upload/v1671212359/motorshop/yqmebfb78ion0izouiee.png",							
       "http://res.cloudinary.com/tmartins/image/upload/v1671216063/motorshop/olhwamqxeawfw4l2ftox.png"],
-      typeOfVehicle: false,
+      typeOfVehicle: "carro",
       ...advertisement
     }
   )

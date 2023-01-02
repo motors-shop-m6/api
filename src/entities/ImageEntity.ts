@@ -9,7 +9,7 @@ import {
 import { AdvertisementEntity } from "./AdvertisementEntity";
 
 @Entity("images")
-export class CoverImageEntity {
+export class ImageEntity {
   @PrimaryGeneratedColumn("uuid")
   readonly id: string;
 
