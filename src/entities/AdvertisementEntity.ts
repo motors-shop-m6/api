@@ -9,6 +9,7 @@ import {
   UpdateDateColumn
 } from "typeorm";
 import { ImageEntity } from "./ImageEntity";
+import { ReviewEntity } from "./ReviewEntity";
 import { UserEntity } from "./UserEntity";
 
 @Entity("advertisements")
@@ -52,4 +53,7 @@ export class AdvertisementEntity {
 
   @OneToMany(() => ImageEntity, (Image) => Image.advertisement)
   image: ImageEntity[];
+
+  @OneToMany(() => ReviewEntity, (Review) => Review)
+  review: ReviewEntity[];
 }

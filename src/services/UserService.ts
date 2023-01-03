@@ -66,7 +66,7 @@ export class UserService {
       id,
       Object.assign(userUpdate[0]!, { ...userData, updatedAt: updatedAt })
     );
-
+ 
     const user = await userRepository.find({
       where: { id },
       relations: { address: true },
