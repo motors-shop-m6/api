@@ -11,6 +11,7 @@ import {
 } from "typeorm";
 import { AddressEntity } from "./AddressEntity";
 import { AdvertisementEntity } from "./AdvertisementEntity";
+import { ReviewEntity } from "./ReviewEntity";
 
 @Entity("users")
 export class UserEntity {
@@ -54,4 +55,7 @@ export class UserEntity {
   @OneToOne(() => AddressEntity, (Address) => Address)
   @JoinColumn()
   address: AddressEntity;
+
+  @OneToMany(() => ReviewEntity, (Review) => Review)
+  review: ReviewEntity[];
 }
