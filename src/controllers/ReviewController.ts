@@ -5,7 +5,7 @@ import { ReviewService } from "../services/ReviewService";
 export class ReviewController {
   static create = async (req: Request, res: Response) => {
     const userId = req.user.id;
-    const adsId = req.params.adsId;
+    const adsId = req.params.id;
     const reviewData: IReviewRequest = req.body;
 
     const review = await ReviewService.create(reviewData, userId, adsId);

@@ -1,28 +1,28 @@
 import { NextFunction, Request, Response } from "express";
 import { AppDataSource } from "../data-source";
-import { ReviewEntity } from "../entities/ReviewEntity";
+import { AdvertisementEntity } from "../entities/AdvertisementEntity";
 import { BadRequestError } from "../errors/AsyncErrorResponse";
 import { regexExp } from "../utils/regexUtil";
 
-export const handleUniqueCommentMiddleware = async (
+export const handleOwnerCommentMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   const adsId = req.params.id;
 
-  const reviewRepository = AppDataSource.getRepository(ReviewEntity);
+  const vehicleRepository =  AppDataSource.getRepository(AdvertisementEntity)
 
   if (!regexExp.uuid.test(adsId)) {
     throw new BadRequestError("Invalid Id Format");
   }
 
-  const uniqueReview = await reviewRepository.findOne({
-    where: { vehicle: { id: adsId }, user: { id: req.user.id } },
-  });
+  const vehicle  = await vehicleRepository.findOne({where: {id: adsId}, relations: {user: true}})
 
-  if (uniqueReview) {
-    throw new BadRequestError("Already have a comment");
+  console.log(vehicle)
+
+  if (vehicle?.user.id === req.user.id) {
+    throw new BadRequestError("Owner doesn't can comment");
   }
 
   next();
