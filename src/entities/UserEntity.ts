@@ -33,6 +33,9 @@ export class UserEntity {
   @Column({ type: "varchar", length: 11 })
   phone: string;
 
+  @Column({default: "anunciante"})
+  type_user: string;
+
   @Column({ name: "birth_date", type: "date" })
   birthDate: string;
 
