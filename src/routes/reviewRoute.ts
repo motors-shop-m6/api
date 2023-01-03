@@ -13,7 +13,7 @@ export const reviewRoutes = () => {
     handleAuthTokenMiddleware,
     handleOwnerCommentMiddleware,
     handleUniqueCommentMiddleware,
-    handleAdsIdNotFoundOrInvalidId,
+    // handleAdsIdNotFoundOrInvalidId,
     ReviewController.create
   );
 
